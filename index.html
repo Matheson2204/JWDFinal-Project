@@ -35,35 +35,41 @@
                         <div class="modal-body">
                             <!-- Input Form -->
                                 <form class="row g-3">
-                                    <div class="col-md-4">
-                                    <label for="title" class="form-label">Task title</label>
+
+                                    <div class="col-md-6">
+                                    <label for="title" class="form-label">Task title:</label>
                                     <input type="text" class="form-control" id="title" name="title" required>
                                     </div>
                                     
-                                    <div class="col-md-10">
-                                        <label for="description" class="form-label">Task description</label>
-                                        <textarea class="form-control" maxlength="280" id="description" placeholder="280 character limit" name="description"></textarea>
+                                    <div class="col-md-6">
+                                        <label for="status" class="form-label">Task Status:</label>
+                                        <select class="form-select" id="status" required>
+                                            <option selected disabled value="">Choose status</option>
+                                            <option value="backlog">Backlog</option>
+                                            <option value="todo">To do</option>
+                                            <option value="inProgress">In Progress</option>
+                                            <option value="review">Review</option>
+                                            <option value="done">Done</option>
+    
+                                        </select>
+                                    </div>
+                                    
+                                    <div class="col-md-12">
+                                        <label for="description" class="form-label">Task description:</label>
+                                        <textarea class="form-control" maxlength="260" id="description" rows="6" placeholder="260 character limit" name="description" id="desc"></textarea>
                                         <!-- <div class="invalid-feedback">
                                         Please enter a message in the textarea.
                                         </div> -->
                                     </div>
 
-                                    <div class="col-md-4">
-                                    <label for="status" class="form-label">Task Status</label>
-                                    <select class="form-select" id="status" required>
-                                        <option selected disabled value="">Choose status</option>
-                                        <option value="backlog">Backlog</option>
-                                        <option value="todo">To do</option>
-                                        <option value="inProgress">In Progress</option>
-                                        <option value="review">Review</option>
-                                        <option value="done">Done</option>
-
-                                    </select>
+                                    <div class="col-md-6">
+                                    <label for="title" class="form-label">Assigned to:</label>
+                                    <input type="text" class="form-control" id="assign" name="assign" required>
                                     </div>
                                     
-                                    <div class="col-md-4">
-                                        <label for="dueDate" >Due date:</label>
-                                        <input type="date" min=2021-01-01 max=2022-01-01 id="dueDate" name="dueDate" required>
+                                    <div class="col-md-6">
+                                        <label for="dueDate" class="form-label" >Due date:</label>
+                                        <input type="date" class="form-control" min=2021-01-01 max=2022-01-01 id="dueDate" name="dueDate" required>
                                     </div>
 
                                     <div class="modal-footer">
@@ -86,13 +92,17 @@
                     <div class="card-header">
                         <h3>Task title</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
+                        <p class="card-text"><small class="text-muted">Assigned to: awdwadawdaw</small></p>
+                        <p class="card-text"><small class="text-muted">Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
                         <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
-                        <p class="card-text"><small class="text-muted">Edited dd/mm/yy</small></p>
                     </div>
                 </div> 
 
@@ -101,88 +111,118 @@
             <!-- Start of 'to-do' card -->
             <div class="col-12 col-md bg-light" id="to-do">
                 <h2 class="text-white bg-secondary text-center">To Do</h2>
+
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Task title</h3>
-                 </div>
-                    <div class="card-body">
+                    </div>
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
-                         <button class="btn btn-primary">Edit</button>
+                        <p class="card-text"><small class=>Assigned to:</small></p>
+                        <p class="card-text"><small class=>Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
                     </div>
-                </div> <!-- end of card-->
+                </div> 
                 
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Task title</h3>
-                 </div>
-                    <div class="card-body">
+                    </div>
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
-                         <button class="btn btn-primary">Edit</button>
+                        <p class="card-text"><small class=>Assigned to:</small></p>
+                        <p class="card-text"><small class=>Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
+                        <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
                     </div>
-                </div> <!-- end of card-->
+                </div> 
+
             </div> <!-- end of col -->
             
                 <!-- Start of 'In-progress' card -->
             <div class="col-12 col-md bg-light" id="progress">
                 <h2 class="text-white bg-secondary text-center">In Progress</h2>
+
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Task title</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
+                        <p class="card-text"><small class=>Assigned to:</small></p>
+                        <p class="card-text"><small class=>Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
                         <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
                     </div>
-                </div> <!-- end of card-->
+                </div> 
 
             </div> <!-- end of col -->
 
             <!-- Start of 'review' card -->
             <div class="col-12 col-md bg-light" id="review">
                 <h2 class="text-white bg-secondary text-center">Review</h2>
+                
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Task title</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
+                        <p class="card-text"><small class=>Assigned to:</small></p>
+                        <p class="card-text"><small class=>Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
                         <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
                     </div>
-                </div> <!-- end of card-->
+                </div> 
+
             </div> <!-- end of col -->
             
             <!-- Start of 'done' card column -->
             <div class="col-12 col-md bg-light" id="done">
                 <h2 class="text-white bg-secondary text-center">Done</h2>
 
-                <!-- start of card -->
                 <div class="card text-center">
                     <div class="card-header">
                         <h3>Task title</h3>
                     </div>
-                    <div class="card-body">
+                    <div class="card-body border">
                         <p class="description text-start">
                             Words
                         </p>
+                        <p class="card-text"><small class=>Assigned to:</small></p>
+                        <p class="card-text"><small class=>Due dd/mm/yy</small></p>
+                        
+                    </div>
+                    <div class="card-footer">
                         <button class="btn btn-primary">Edit</button>
                         <button class="btn btn-primary">Delete</button>
                     </div>
-                </div> <!-- end of card-->
+                </div> 
 
 
-            </div> <!-- end of col -->
+            </div> 
+            <!-- end of col -->
 
         </div>
         <!-- end of row -->

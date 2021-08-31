@@ -18,3 +18,8 @@ footer {
     margin-top: 25px;
     padding: 10px
 }
+
+
+.description {
+    border-bottom: 1px solid grey;
+}
