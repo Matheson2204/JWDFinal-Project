@@ -8,6 +8,7 @@
     <!-- Bootstrap CSS -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
     <link href="styles.css" rel="stylesheet">
+    <script src="js/script.js" defer></script>
     <title>Activity Planner</title>
   </head>
   
@@ -20,7 +21,8 @@
     
         <main class="container bg-white">
             <div class="row">
-                <div class="col text-center">
+                <div class="col text-center" id="button-holder">
+                    <button class="btn btn-primary addButton" id="modeswitch">Night Mode</button>
                     <button href="#" data-bs-toggle="modal" class="btn btn-primary addButton" data-bs-target="#task-form">Add Task</button>
                 </div>
 

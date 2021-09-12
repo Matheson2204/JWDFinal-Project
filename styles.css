@@ -1,25 +1,31 @@
 .addButton {
-   margin-bottom: 10px;
-    
-    
+	margin-bottom: 10px;
+}
+/* For nightmode form close button */
+.night-close {
+	filter: invert(1);
+}
+
+/* For nightmode card header bottom */
+.night-header-divide {
+	border-bottom: "1px solid white";
 }
 
 .col-12 {
-    margin: 0 1%;
-    padding: 0 1%; 
-    /* background-color: red !important; */
+	margin: 0 1%;
+	padding: 0 1%;
+	/* background-color: red !important; */
 }
 
 .card {
-    margin-bottom: 8%;
+	margin-bottom: 8%;
 }
 
 footer {
-    margin-top: 25px;
-    padding: 10px
+	margin-top: 25px;
+	padding: 10px;
 }
 
-
 .description {
-    border-bottom: 1px solid grey;
+	border-bottom: 1px solid grey;
 }
