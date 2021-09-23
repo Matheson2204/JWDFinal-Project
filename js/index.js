@@ -183,15 +183,12 @@ const addCard = () => {
 	column.appendChild(newCard);
 };
 
-const taskForm = document.getElementById("task-form");
-console.log(taskForm);
+// Targetting modal
+const theModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 
-const modalForm = bootstrap.Modal.getInstance(taskForm);
-console.log(modalForm);
-
-// const test = () => {
-// 	modalForm.show();
-// 	console.log("it worked");
-// };
+const test = () => {
+	theModal.show();
+	console.log("it worked");
+};
 
 submitBtn.addEventListener("click", formSubmission);
