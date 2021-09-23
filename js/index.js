@@ -9,7 +9,6 @@ const dueDate = document.querySelector("#dueDate");
 
 const submitBtn = document.querySelector("#submit-btn");
 
-
 let invalidFields = 0;
 
 const formSubmission = (event) => {
@@ -148,51 +147,69 @@ const addCard = () => {
                             
                         </div>
                         <div class="card-footer">
-                            <button id="edit-btn" class="btn btn-primary">Edit</button>
-                            <button id="delete-btn" class="btn btn-primary">Delete</button>
+                            <button class="btn btn-primary edit-btn">Edit</button>
+                            <button class="btn btn-primary delete-btn">Delete</button>
                         </div>`;
+
+	// Adds delete functionality to delete button
+	const deleteBtn = newCard.querySelector(".delete-btn");
+	console.log(deleteBtn);
+	deleteBtn.addEventListener("click", () => {
+		newCard.innerHTML = "";
+		column.removeChild(newCard);
+	});
 
 	column.appendChild(newCard);
 };
 
+function deleteCard(targetId) {
+	if (targetId === id) {
+		console.log("success");
+		console.log(card);
+		card.innerHTML = "remove";
+	}
+}
+
+// Old version
 // function deleteCard(targetId) {
 // 	document.querySelectorAll(".card").forEach((card) => {
-// 		console.log(card);
 // 		// Target card
 // 		// delete the cards innnerHTML
 // 		// also delete the parent div (with class of card)
-// 		const id = card.getAttribute("data-task-id");
+// 		const id = parseInt(card.getAttribute("data-task-id"));
 // 		console.log(id);
+//     console.log(targetId);
 // 		// Above this is working good
+// 		//  Checking for exact type, might need to ensure one is not string and other is integer
 // 		if (targetId === id) {
-//       console.log("success")
+// 			console.log("success");
 // 			console.log(card);
 // 			card.innerHTML = "remove";
 // 		}
 // 	});
 // }
+// Add this to the end of the create card function
+
+//
+// const footer = deleteBtn.parentElement (this will target the card footer)
+// const card = footer.parentElement
 
 // // document.querySelectorAll("@task-form")
 // // task-list.addEventListener("click", (event) => {
 // //   if() {
 // // })
 
-
-
-
-
 // document.querySelectorAll(".card").forEach((card) => {
 //   console.log(card);
 // card.addEventListener('click', deleteCard => {
 //   if (event.target === document.querySelector("#delete-btn"))
 //   card // from your creating function
-  
 
 //  card.parentElement.removeChild(card)
 //   setData()
 // })
 // })
 // const editBtn = document.querySelector("#edit-btn");
-// // const deleteBtn = 
+// // const deleteBtn =
 
 submitBtn.addEventListener("click", formSubmission);
