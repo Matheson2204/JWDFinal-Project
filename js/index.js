@@ -153,10 +153,10 @@ const addCard = () => {
 
 	// Adds delete functionality to delete button
 	const deleteBtn = newCard.querySelector(".delete-btn");
-	console.log(deleteBtn);
 	deleteBtn.addEventListener("click", () => {
 		newCard.innerHTML = "";
 		column.removeChild(newCard);
+		taskManager.deleteTask(cardData.currentId);
 	});
 
 	column.appendChild(newCard);
@@ -211,5 +211,6 @@ function deleteCard(targetId) {
 // })
 // const editBtn = document.querySelector("#edit-btn");
 // // const deleteBtn =
+// taskManager.addTasks("Title", "Description", "Me", "In progress", "2021-12-12");
 
 submitBtn.addEventListener("click", formSubmission);
