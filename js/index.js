@@ -159,58 +159,39 @@ const addCard = () => {
 		taskManager.deleteTask(cardData.currentId);
 	});
 
+	// Edit button
+	// call the addCard()
+	// //
+	// const editBtn = newCard.querySelector(".edit-btn");
+	// editBtn.addEventListener("click", () => {
+	// 	newCard.innerHTML = `<div class="card-header">
+	//                           <h3>${cardData.title}</h3>
+	//                       </div>
+	//                       <div class="card-body border">
+	//                           <p class="description text-start">${cardData.desc}</p>
+	//                           <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
+	//                           <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
+
+	//                       </div>
+	//                       <div class="card-footer">
+	//                           <button class="btn btn-primary edit-btn">Edit</button>
+	//                           <button class="btn btn-primary delete-btn">Delete</button>
+	//                       </div>`;
+	// 	taskManager.tasks(cardData.currentId);
+	// });
+
 	column.appendChild(newCard);
 };
 
-function deleteCard(targetId) {
-	if (targetId === id) {
-		console.log("success");
-		console.log(card);
-		card.innerHTML = "remove";
-	}
-}
+const taskForm = document.getElementById("task-form");
+console.log(taskForm);
 
-// Old version
-// function deleteCard(targetId) {
-// 	document.querySelectorAll(".card").forEach((card) => {
-// 		// Target card
-// 		// delete the cards innnerHTML
-// 		// also delete the parent div (with class of card)
-// 		const id = parseInt(card.getAttribute("data-task-id"));
-// 		console.log(id);
-//     console.log(targetId);
-// 		// Above this is working good
-// 		//  Checking for exact type, might need to ensure one is not string and other is integer
-// 		if (targetId === id) {
-// 			console.log("success");
-// 			console.log(card);
-// 			card.innerHTML = "remove";
-// 		}
-// 	});
-// }
-// Add this to the end of the create card function
+const modalForm = bootstrap.Modal.getInstance(taskForm);
+console.log(modalForm);
 
-//
-// const footer = deleteBtn.parentElement (this will target the card footer)
-// const card = footer.parentElement
-
-// // document.querySelectorAll("@task-form")
-// // task-list.addEventListener("click", (event) => {
-// //   if() {
-// // })
-
-// document.querySelectorAll(".card").forEach((card) => {
-//   console.log(card);
-// card.addEventListener('click', deleteCard => {
-//   if (event.target === document.querySelector("#delete-btn"))
-//   card // from your creating function
-
-//  card.parentElement.removeChild(card)
-//   setData()
-// })
-// })
-// const editBtn = document.querySelector("#edit-btn");
-// // const deleteBtn =
-// taskManager.addTasks("Title", "Description", "Me", "In progress", "2021-12-12");
+// const test = () => {
+// 	modalForm.show();
+// 	console.log("it worked");
+// };
 
 submitBtn.addEventListener("click", formSubmission);
