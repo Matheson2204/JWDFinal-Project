@@ -3,7 +3,7 @@ const taskManager = new TaskManager();
 
 const title = document.querySelector("#title");
 const status = document.querySelector("#status");
-const description = document.querySelector("#description");
+const description = document.querySelector("#desc");
 const assign = document.querySelector("#assign");
 const dueDate = document.querySelector("#dueDate");
 
@@ -136,7 +136,7 @@ const addCard = () => {
                         </div>
                         <div class="card-body border">
                             <p class="description text-start">${cardData.desc}</p>
-                            <p class="card-text"><small class=>Assigned to: ${cardData.assign}</small></p>
+                            <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
                             <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
                             
                         </div>
