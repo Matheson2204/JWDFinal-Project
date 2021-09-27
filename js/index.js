@@ -14,7 +14,6 @@ const formModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 let invalidFields = 0;
 
 const formSubmission = (event) => {
-  
 	// Grab current values in form fields
 	let fieldValues = [
 		title.value,
@@ -58,7 +57,7 @@ const formSubmission = (event) => {
 	if (invalidFields === 0) {
 		submitData(fields);
 		addCard();
-    return
+		return;
 	} else if (invalidFields > 0) {
 		invalidFields = 0;
 		return;
@@ -130,7 +129,7 @@ const addCard = () => {
 
 	// Create new styled card with content
 	const newCard = document.createElement("div");
-  console.log(newCard);
+	console.log(newCard);
 	newCard.classList.add("card");
 	newCard.classList.add("text-center");
 
@@ -161,86 +160,84 @@ const addCard = () => {
 		taskManager.deleteTask(cardData.currentId);
 	});
 
-  // Adds edit button funcitonality
-  const editBtn = newCard.querySelector(".edit-btn");
+	// Adds edit button funcitonality
+	const editBtn = newCard.querySelector(".edit-btn");
 	// ----- Refactoring into its own global function ----//
 
-// 	editBtn.addEventListener("click", () => {
-//     // Opens form modal, disables original submit btn function
-//     formModal.show();
-//     submitBtn.removeEventListener("click", formSubmission);
-    
-// 		// Submits task info from .tasks array into form
-//     title.value = cardData.title;
-// 		description.value = cardData.desc;
-// 		assign.value = cardData.assign;
-// 		status.value = cardData.status;
-// 		dueDate.value = cardData.dueDate;
-    
+	// 	editBtn.addEventListener("click", () => {
+	//     // Opens form modal, disables original submit btn function
+	//     formModal.show();
+	//     submitBtn.removeEventListener("click", formSubmission);
 
-//     submitBtn.addEventListener("click", () => {
-//       // Update task info in .tasks
-//       taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
-//       console.log(taskManager.tasks);
-//       updateCard(cardData.currentId, cardData);
+	// 		// Submits task info from .tasks array into form
+	//     title.value = cardData.title;
+	// 		description.value = cardData.desc;
+	// 		assign.value = cardData.assign;
+	// 		status.value = cardData.status;
+	// 		dueDate.value = cardData.dueDate;
 
-// 			// Add back ability to submit new card
-// 			submitBtn.addEventListener("click", formSubmission);
-		
-// 	});
+	//     submitBtn.addEventListener("click", () => {
+	//       // Update task info in .tasks
+	//       taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
+	//       console.log(taskManager.tasks);
+	//       updateCard(cardData.currentId, cardData);
 
-// });
+	// 			// Add back ability to submit new card
+	// 			submitBtn.addEventListener("click", formSubmission);
 
-  // IMPORTANT: adds card to page
-  column.appendChild(newCard);
+	// 	});
+
+	// });
+
+	// IMPORTANT: adds card to page
+	column.appendChild(newCard);
 };
-
 
 const addEditBtn = (targetButton, cardData) => {
 	editBtn.addEventListener("click", () => {
-    // Opens form modal, disables original submit btn function
-    formModal.show();
-    submitBtn.removeEventListener("click", formSubmission);
-    
+		// Opens form modal, disables original submit btn function
+		formModal.show();
+		submitBtn.removeEventListener("click", formSubmission);
+
 		// Submits task info from .tasks array into form
-    title.value = cardData.title;
+		title.value = cardData.title;
 		description.value = cardData.desc;
 		assign.value = cardData.assign;
 		status.value = cardData.status;
 		dueDate.value = cardData.dueDate;
-    
 
-    submitBtn.addEventListener("click", () => {
-      // Update task info in .tasks
-      taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
-      console.log(taskManager.tasks);
-      updateCard(cardData.currentId, cardData);
+		submitBtn.addEventListener("click", () => {
+			// Update task info in .tasks
+			taskManager.editTask(
+				cardData.currentId,
+				title.value,
+				description.value,
+				assign.value,
+				status.value,
+				dueDate.value
+			);
+			console.log(taskManager.tasks);
+			updateCard(cardData.currentId, cardData);
 
 			// Add back ability to submit new card
 			submitBtn.addEventListener("click", formSubmission);
-		
+		});
 	});
+};
 
-});
-
-}
-	
 const updateCard = (targetId, cardData) => {
-	// Convert targetId into number 
-	
-  // Select correct card
-  const cardList = document.querySelectorAll(".card");
+	// Convert targetId into number
+
+	// Select correct card
+	const cardList = document.querySelectorAll(".card");
 	console.log(targetId);
 	console.log(targetId.toString());
-	
-  cardList.forEach(cards => {
-		console.log(cards)
-		const taskId = cards.getAttribute("data-task-id");
-    if(taskId === targetId.toString()){
 
-			
-			
-  		cards.innerHTML = `<div class="card-header">
+	cardList.forEach((cards) => {
+		console.log(cards);
+		const taskId = cards.getAttribute("data-task-id");
+		if (taskId === targetId.toString()) {
+			cards.innerHTML = `<div class="card-header">
 	                          <h3>${cardData.title}</h3>
 	                      </div>
 	                      <div class="card-body border">
@@ -252,17 +249,10 @@ const updateCard = (targetId, cardData) => {
 	                      <div class="card-footer">
 	                          <button class="btn btn-primary edit-btn">Edit</button>
 	                          <button class="btn btn-primary delete-btn">Delete</button>
-	                      </div>`;	
-
-
-    }
-  })
-
-
+	                      </div>`;
+		}
+	});
 };
-
-
-
 
 const openForm = () => {
 	formModal.show();
