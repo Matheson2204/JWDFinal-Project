@@ -9,9 +9,12 @@ const dueDate = document.querySelector("#dueDate");
 
 const submitBtn = document.querySelector("#submit-btn");
 
+// Targetting modal
+const formModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 let invalidFields = 0;
 
 const formSubmission = (event) => {
+  
 	// Grab current values in form fields
 	let fieldValues = [
 		title.value,
@@ -55,6 +58,7 @@ const formSubmission = (event) => {
 	if (invalidFields === 0) {
 		submitData(fields);
 		addCard();
+    return
 	} else if (invalidFields > 0) {
 		invalidFields = 0;
 		return;
@@ -121,14 +125,12 @@ const submitData = (fieldArray) => {
 const addCard = () => {
 	// Grab object/card in the last position of the array
 	const cardData = taskManager.tasks[taskManager.tasks.length - 1];
-	console.log(cardData);
-
 	// Target column with a status matching the input
-	console.log(cardData.status);
 	const column = document.getElementById(`${cardData.status}`);
 
 	// Create new styled card with content
 	const newCard = document.createElement("div");
+  console.log(newCard);
 	newCard.classList.add("card");
 	newCard.classList.add("text-center");
 
@@ -159,36 +161,116 @@ const addCard = () => {
 		taskManager.deleteTask(cardData.currentId);
 	});
 
-	// Edit button
-	// call the addCard()
-	// //
-	// const editBtn = newCard.querySelector(".edit-btn");
-	// editBtn.addEventListener("click", () => {
-	// 	newCard.innerHTML = `<div class="card-header">
-	//                           <h3>${cardData.title}</h3>
-	//                       </div>
-	//                       <div class="card-body border">
-	//                           <p class="description text-start">${cardData.desc}</p>
-	//                           <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
-	//                           <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
+  // Adds edit button funcitonality
+  const editBtn = newCard.querySelector(".edit-btn");
+	// ----- Refactoring into its own global function ----//
 
-	//                       </div>
-	//                       <div class="card-footer">
-	//                           <button class="btn btn-primary edit-btn">Edit</button>
-	//                           <button class="btn btn-primary delete-btn">Delete</button>
-	//                       </div>`;
-	// 	taskManager.tasks(cardData.currentId);
-	// });
+// 	editBtn.addEventListener("click", () => {
+//     // Opens form modal, disables original submit btn function
+//     formModal.show();
+//     submitBtn.removeEventListener("click", formSubmission);
+    
+// 		// Submits task info from .tasks array into form
+//     title.value = cardData.title;
+// 		description.value = cardData.desc;
+// 		assign.value = cardData.assign;
+// 		status.value = cardData.status;
+// 		dueDate.value = cardData.dueDate;
+    
 
-	column.appendChild(newCard);
+//     submitBtn.addEventListener("click", () => {
+//       // Update task info in .tasks
+//       taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
+//       console.log(taskManager.tasks);
+//       updateCard(cardData.currentId, cardData);
+
+// 			// Add back ability to submit new card
+// 			submitBtn.addEventListener("click", formSubmission);
+		
+// 	});
+
+// });
+
+  // IMPORTANT: adds card to page
+  column.appendChild(newCard);
 };
 
-// Targetting modal
-const theModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 
-const test = () => {
-	theModal.show();
-	console.log("it worked");
+const addEditBtn = (targetButton, cardData) => {
+	editBtn.addEventListener("click", () => {
+    // Opens form modal, disables original submit btn function
+    formModal.show();
+    submitBtn.removeEventListener("click", formSubmission);
+    
+		// Submits task info from .tasks array into form
+    title.value = cardData.title;
+		description.value = cardData.desc;
+		assign.value = cardData.assign;
+		status.value = cardData.status;
+		dueDate.value = cardData.dueDate;
+    
+
+    submitBtn.addEventListener("click", () => {
+      // Update task info in .tasks
+      taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
+      console.log(taskManager.tasks);
+      updateCard(cardData.currentId, cardData);
+
+			// Add back ability to submit new card
+			submitBtn.addEventListener("click", formSubmission);
+		
+	});
+
+});
+
+}
+	
+const updateCard = (targetId, cardData) => {
+	// Convert targetId into number 
+	
+  // Select correct card
+  const cardList = document.querySelectorAll(".card");
+	console.log(targetId);
+	console.log(targetId.toString());
+	
+  cardList.forEach(cards => {
+		console.log(cards)
+		const taskId = cards.getAttribute("data-task-id");
+    if(taskId === targetId.toString()){
+
+			
+			
+  		cards.innerHTML = `<div class="card-header">
+	                          <h3>${cardData.title}</h3>
+	                      </div>
+	                      <div class="card-body border">
+	                          <p class="description text-start">${cardData.desc}</p>
+	                          <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
+	                          <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
+
+	                      </div>
+	                      <div class="card-footer">
+	                          <button class="btn btn-primary edit-btn">Edit</button>
+	                          <button class="btn btn-primary delete-btn">Delete</button>
+	                      </div>`;	
+
+
+    }
+  })
+
+
+};
+
+
+
+
+const openForm = () => {
+	formModal.show();
+	console.log("Form open");
 };
 
 submitBtn.addEventListener("click", formSubmission);
+
+// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
+// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
+// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
