@@ -7,51 +7,15 @@ const description = document.querySelector("#desc");
 const assign = document.querySelector("#assign");
 const dueDate = document.querySelector("#dueDate");
 
-const submitBtn = document.querySelector("#submit-btn");
-
-//
 const fields = [title, description, assign, status, dueDate];
 
-// Targetting modal
+const submitBtn = document.querySelector("#submit-btn");
+
+// Modal
 const formModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 let invalidFields = 0;
 
 const formSubmission = (event) => {
-	// Grab current values in form fields
-	// let fieldValues = [
-	// 	title.value,
-	// 	description.value,
-	// 	assign.value,
-	// 	status.value,
-	// 	dueDate.value,
-	// ];
-
-	// Moving for test
-	// const fields = [title, description, assign, status, dueDate];
-
-	// // Validates first 3 fields for length < 5
-	// for (let i = 0; i < 3; i++) {
-	// 	if (fieldValues[i] === "" || fieldValues[i].length < 5) {
-	// 		fields[i].classList.remove("is-valid");
-	// 		fields[i].classList.add("is-invalid");
-	// 		invalidFields++;
-	// 	} else {
-	// 		fields[i].classList.remove("is-invalid");
-	// 		fields[i].classList.add("is-valid");
-	// 	}
-	// }
-
-	// // Validates status and date fields for length > 0
-	// for (let i = 3; i < 5; i++) {
-	// 	if (fieldValues[i].length === 0) {
-	// 		fields[i].classList.remove("is-valid");
-	// 		fields[i].classList.add("is-invalid");
-	// 		invalidFields++;
-	// 	} else {
-	// 		fields[i].classList.remove("is-invalid");
-	// 		fields[i].classList.add("is-valid");
-	// 	}
-	// }
 	validateFields(fields);
 	dateIsValid();
 
@@ -59,7 +23,7 @@ const formSubmission = (event) => {
 
 	// Allows card creation only if fields are all valid
 	if (invalidFields === 0) {
-		submitData(fields);
+		submitData();
 		clearForm(fields);
 		addCard();
 		return;
@@ -150,7 +114,7 @@ function dateIsValid() {
 	}
 }
 
-const submitData = (fieldArray) => {
+const submitData = () => {
 	// Adds data into a new task object
 	taskManager.addTasks(
 		title.value,
@@ -259,6 +223,10 @@ const addEditBtn = (targetButton, cardData) => {
 		status.value = cardData.status;
 		dueDate.value = cardData.dueDate;
 
+		// Store old status
+		const oldStatus = cardData.status;
+		console.log(oldStatus);
+
 		submitBtn.addEventListener("click", function editSubmit() {
 			// const fields = [title, description, assign, status, dueDate];
 			// let fieldValues = [
@@ -282,12 +250,12 @@ const addEditBtn = (targetButton, cardData) => {
 					dueDate.value
 				);
 
-				console.log(taskManager.tasks);
-				updateCard(cardData.currentId, cardData);
+				updateCard(cardData.currentId, cardData, oldStatus);
 
-				// Allow add task button to add new card again and not edit
+				// Ensures add new task form adds new card again and does not edit existing card
 				submitBtn.removeEventListener("click", editSubmit);
 				submitBtn.addEventListener("click", formSubmission);
+
 				clearForm(fields);
 				// Closes modal
 				formModal.hide();
@@ -303,18 +271,26 @@ const addEditBtn = (targetButton, cardData) => {
 	targetButton.addEventListener("click", editFunctionality);
 };
 
-const updateCard = (targetId, cardData) => {
-	// Convert targetId into number
-
+const updateCard = (targetId, cardData, oldStatus) => {
+	const oldColumn = document.getElementById(oldStatus);
+	// (#status)
 	// Select correct card
 	const cardList = document.querySelectorAll(".card");
-	console.log(targetId);
-	console.log(targetId.toString());
 
+	// Check to see if card needs to move status columns
+	const newStatus = cardData.status;
+
+	console.log(oldStatus);
+	console.log(newStatus);
+
+	// Everything here only updates contents
 	cardList.forEach((cards) => {
 		const taskId = cards.getAttribute("data-task-id");
 		if (taskId === targetId.toString()) {
-			cards.innerHTML = `<div class="card-header">
+			if (oldStatus === newStatus) {
+				console.log("statuses match");
+				// only update contents
+				cards.innerHTML = `<div class="card-header">
 	                          <h3>${cardData.title}</h3>
 	                      </div>
 	                      <div class="card-body border">
@@ -327,17 +303,24 @@ const updateCard = (targetId, cardData) => {
 	                          <button class="btn btn-primary edit-btn">Edit</button>
 	                          <button class="btn btn-primary delete-btn">Delete</button>
 	                      </div>`;
-			// Re-add edit button functionality
-			const editBtn = cards.querySelector(".edit-btn");
-			addEditBtn(editBtn, cardData);
+				// Re-add edit button functionality
+				const editBtn = cards.querySelector(".edit-btn");
+				addEditBtn(editBtn, cardData);
 
-			// Re-add delete button functionality
-			const deleteBtn = cards.querySelector(".delete-btn");
-			deleteBtn.addEventListener("click", () => {
-				cards.innerHTML = "";
-				// column.removeChild(cards);
-				taskManager.deleteTask(cardData.currentId);
-			});
+				// Re-add delete button functionality
+				const deleteBtn = cards.querySelector(".delete-btn");
+				deleteBtn.addEventListener("click", () => {
+					cards.innerHTML = "";
+					oldColumn.removeChild(cards);
+					taskManager.deleteTask(cardData.currentId);
+				});
+				
+			} else {
+				console.log("statuses don't match");
+				// deletes the card first
+				oldColumn.removeChild(cards);
+				addCard()
+			}
 		}
 	});
 };
@@ -352,3 +335,7 @@ submitBtn.addEventListener("click", formSubmission);
 // taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
 // taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
 // taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
+
+// done button should
+// Update the status of a targeted card
+// and then call render again()

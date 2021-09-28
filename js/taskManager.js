@@ -13,7 +13,7 @@ class TaskManager {
 			status: status,
 			dueDate: dueDate,
 		};
-		
+
 		this.tasks.push(newTask);
 	}
 	//Method for delete task card info
@@ -25,17 +25,17 @@ class TaskManager {
 		}
 		this.tasks.shift(targetId);
 	}
-//editing card info (work in progress)
+	//editing card info (work in progress)
 	editTask(targetId, title, desc, assign, status, dueDate) {
-		this.tasks.forEach(task => {
-			if(targetId ===  task.currentId){
-
+		this.tasks.forEach((task) => {
+			if (targetId === task.currentId) {
 				task.title = title;
 				task.desc = desc;
 				task.assign = assign;
 				task.dueDate = dueDate;
+				task.status = status;
 			}
-		})
+		});
 	}
 }
 
