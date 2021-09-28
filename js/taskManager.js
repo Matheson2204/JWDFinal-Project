@@ -13,7 +13,6 @@ class TaskManager {
 			status: status,
 			dueDate: dueDate,
 		};
-
 		this.tasks.push(newTask);
 	}
 	//Method for delete task card info

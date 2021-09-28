@@ -1,6 +1,7 @@
 // Create object to store card data
 const taskManager = new TaskManager();
 
+// For targetting
 const title = document.querySelector("#title");
 const status = document.querySelector("#status");
 const description = document.querySelector("#desc");
@@ -171,8 +172,11 @@ const addCard = (cardData) => {
 	// Adds delete functionality to delete button
 	const deleteBtn = newCard.querySelector(".delete-btn");
 	deleteBtn.addEventListener("click", () => {
+		// Delete from HTML
 		newCard.innerHTML = "";
 		column.removeChild(newCard);
+
+		// Delete from .tasks and local storage
 		taskManager.deleteTask(cardData.currentId);
 		taskManager.save();
 	});
@@ -244,13 +248,14 @@ const updateCard = (targetId, cardData, oldStatus) => {
 	// Select correct card
 	const cardList = document.querySelectorAll(".card");
 
-	// Check to see if card needs to move status columns
+	// Grabs current status updated from edit form submission
 	const newStatus = cardData.status;
 
 	// Everything here only updates contents
 	cardList.forEach((cards) => {
 		const taskId = cards.getAttribute("data-task-id");
 		if (taskId === targetId.toString()) {
+			// Checks if status has changed
 			if (oldStatus === newStatus) {
 				// Update contents of card without moving columns
 				cards.innerHTML = `<div class="card-header">
@@ -274,12 +279,16 @@ const updateCard = (targetId, cardData, oldStatus) => {
 				// Re-add delete button functionality
 				const deleteBtn = cards.querySelector(".delete-btn");
 				deleteBtn.addEventListener("click", () => {
+					// Delete from HTML
 					cards.innerHTML = "";
 					oldColumn.removeChild(cards);
+
+					// Delete from .tasks and local storage
 					taskManager.deleteTask(cardData.currentId);
+					taskManager.save();
 				});
 			} else {
-				// Delet card and re-render in correct column
+				// Delete card and re-render in correct column
 				oldColumn.removeChild(cards);
 				addCard(cardData);
 			}
@@ -287,11 +296,17 @@ const updateCard = (targetId, cardData, oldStatus) => {
 	});
 };
 
-// Render all cards in local storage on page load
+// Render cards in local storage on page load (if any)
 taskManager.load();
-taskManager.tasks.forEach((task) => {
-	const cardData = task;
-	addCard(cardData);
-});
+if (taskManager.tasks) {
+	taskManager.tasks.forEach((task) => {
+		const cardData = task;
+		addCard(cardData);
+	});
+} else {
+	// IMPORTANT: Prevents .load from making .tasks = null
+	taskManager.tasks = [];
+}
 
+// Add submission functionality for "add task" button
 submitBtn.addEventListener("click", formSubmission);
