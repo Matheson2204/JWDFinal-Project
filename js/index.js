@@ -9,12 +9,75 @@ const dueDate = document.querySelector("#dueDate");
 
 const submitBtn = document.querySelector("#submit-btn");
 
+//
+const fields = [title, description, assign, status, dueDate];
+
 // Targetting modal
 const formModal = new bootstrap.Modal(document.getElementById("task-form"), {});
 let invalidFields = 0;
 
 const formSubmission = (event) => {
 	// Grab current values in form fields
+	// let fieldValues = [
+	// 	title.value,
+	// 	description.value,
+	// 	assign.value,
+	// 	status.value,
+	// 	dueDate.value,
+	// ];
+
+	// Moving for test
+	// const fields = [title, description, assign, status, dueDate];
+
+	// // Validates first 3 fields for length < 5
+	// for (let i = 0; i < 3; i++) {
+	// 	if (fieldValues[i] === "" || fieldValues[i].length < 5) {
+	// 		fields[i].classList.remove("is-valid");
+	// 		fields[i].classList.add("is-invalid");
+	// 		invalidFields++;
+	// 	} else {
+	// 		fields[i].classList.remove("is-invalid");
+	// 		fields[i].classList.add("is-valid");
+	// 	}
+	// }
+
+	// // Validates status and date fields for length > 0
+	// for (let i = 3; i < 5; i++) {
+	// 	if (fieldValues[i].length === 0) {
+	// 		fields[i].classList.remove("is-valid");
+	// 		fields[i].classList.add("is-invalid");
+	// 		invalidFields++;
+	// 	} else {
+	// 		fields[i].classList.remove("is-invalid");
+	// 		fields[i].classList.add("is-valid");
+	// 	}
+	// }
+	validateFields(fields);
+	dateIsValid();
+
+	event.preventDefault();
+
+	// Allows card creation only if fields are all valid
+	if (invalidFields === 0) {
+		submitData(fields);
+		clearForm(fields);
+		addCard();
+		return;
+	} else if (invalidFields > 0) {
+		invalidFields = 0;
+		return;
+	}
+};
+
+// let fieldValues = [
+// 	title.value,
+// 	description.value,
+// 	assign.value,
+// 	status.value,
+// 	dueDate.value,
+// ];
+
+const validateFields = (fields) => {
 	let fieldValues = [
 		title.value,
 		description.value,
@@ -22,8 +85,6 @@ const formSubmission = (event) => {
 		status.value,
 		dueDate.value,
 	];
-
-	const fields = [title, description, assign, status, dueDate];
 
 	// Validates first 3 fields for length < 5
 	for (let i = 0; i < 3; i++) {
@@ -47,20 +108,6 @@ const formSubmission = (event) => {
 			fields[i].classList.remove("is-invalid");
 			fields[i].classList.add("is-valid");
 		}
-	}
-
-	dateIsValid();
-
-	event.preventDefault();
-
-	// Allows card creation only if fields are all valid
-	if (invalidFields === 0) {
-		submitData(fields);
-		addCard();
-		return;
-	} else if (invalidFields > 0) {
-		invalidFields = 0;
-		return;
 	}
 };
 
@@ -112,7 +159,9 @@ const submitData = (fieldArray) => {
 		status.value,
 		dueDate.value
 	);
+};
 
+const clearForm = (fieldArray) => {
 	// Clear fields and valid/invalid bootstrap classes
 	document.querySelector("form").reset();
 	fieldArray.forEach((field) => {
@@ -162,28 +211,31 @@ const addCard = () => {
 
 	// Adds edit button funcitonality
 	const editBtn = newCard.querySelector(".edit-btn");
+
+	// Working with global function refactor
+	addEditBtn(editBtn, cardData);
 	// ----- Refactoring into its own global function ----//
 
-	// 	editBtn.addEventListener("click", () => {
-	//     // Opens form modal, disables original submit btn function
-	//     formModal.show();
-	//     submitBtn.removeEventListener("click", formSubmission);
+	// editBtn.addEventListener("click", () => {
+	// // Opens form modal, disables original submit btn function
+	// formModal.show();
+	// submitBtn.removeEventListener("click", formSubmission);
 
-	// 		// Submits task info from .tasks array into form
-	//     title.value = cardData.title;
-	// 		description.value = cardData.desc;
-	// 		assign.value = cardData.assign;
-	// 		status.value = cardData.status;
-	// 		dueDate.value = cardData.dueDate;
+	// 	// Submits task info from .tasks array into form
+	// title.value = cardData.title;
+	// 	description.value = cardData.desc;
+	// 	assign.value = cardData.assign;
+	// 	status.value = cardData.status;
+	// 	dueDate.value = cardData.dueDate;
 
-	//     submitBtn.addEventListener("click", () => {
-	//       // Update task info in .tasks
-	//       taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
-	//       console.log(taskManager.tasks);
-	//       updateCard(cardData.currentId, cardData);
+	// submitBtn.addEventListener("click", () => {
+	//   // Update task info in .tasks
+	//   taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
+	//   console.log(taskManager.tasks);
+	//   updateCard(cardData.currentId, cardData);
 
-	// 			// Add back ability to submit new card
-	// 			submitBtn.addEventListener("click", formSubmission);
+	// 		// Add back ability to submit new card
+	// 		submitBtn.addEventListener("click", formSubmission);
 
 	// 	});
 
@@ -194,7 +246,8 @@ const addCard = () => {
 };
 
 const addEditBtn = (targetButton, cardData) => {
-	editBtn.addEventListener("click", () => {
+	// let editFunctionality;
+	function editFunctionality() {
 		// Opens form modal, disables original submit btn function
 		formModal.show();
 		submitBtn.removeEventListener("click", formSubmission);
@@ -206,23 +259,48 @@ const addEditBtn = (targetButton, cardData) => {
 		status.value = cardData.status;
 		dueDate.value = cardData.dueDate;
 
-		submitBtn.addEventListener("click", () => {
-			// Update task info in .tasks
-			taskManager.editTask(
-				cardData.currentId,
-				title.value,
-				description.value,
-				assign.value,
-				status.value,
-				dueDate.value
-			);
-			console.log(taskManager.tasks);
-			updateCard(cardData.currentId, cardData);
+		submitBtn.addEventListener("click", function editSubmit() {
+			// const fields = [title, description, assign, status, dueDate];
+			// let fieldValues = [
+			// 	title.value,
+			// 	description.value,
+			// 	assign.value,
+			// 	status.value,
+			// 	dueDate.value,
+			// ];
+			validateFields(fields);
+			dateIsValid();
 
-			// Add back ability to submit new card
-			submitBtn.addEventListener("click", formSubmission);
+			if (invalidFields === 0) {
+				// Update task info in .tasks
+				taskManager.editTask(
+					cardData.currentId,
+					title.value,
+					description.value,
+					assign.value,
+					status.value,
+					dueDate.value
+				);
+
+				console.log(taskManager.tasks);
+				updateCard(cardData.currentId, cardData);
+
+				// Allow add task button to add new card again and not edit
+				submitBtn.removeEventListener("click", editSubmit);
+				submitBtn.addEventListener("click", formSubmission);
+				clearForm(fields);
+				// Closes modal
+				formModal.hide();
+
+				// Re-adds ability to edit card after submitting an edit
+				// targetButton.addEventListener("click", editFunctionality);
+			} else if (invalidFields > 0) {
+				invalidFields = 0;
+				return;
+			}
 		});
-	});
+	}
+	targetButton.addEventListener("click", editFunctionality);
 };
 
 const updateCard = (targetId, cardData) => {
@@ -234,7 +312,6 @@ const updateCard = (targetId, cardData) => {
 	console.log(targetId.toString());
 
 	cardList.forEach((cards) => {
-		console.log(cards);
 		const taskId = cards.getAttribute("data-task-id");
 		if (taskId === targetId.toString()) {
 			cards.innerHTML = `<div class="card-header">
@@ -250,6 +327,17 @@ const updateCard = (targetId, cardData) => {
 	                          <button class="btn btn-primary edit-btn">Edit</button>
 	                          <button class="btn btn-primary delete-btn">Delete</button>
 	                      </div>`;
+			// Re-add edit button functionality
+			const editBtn = cards.querySelector(".edit-btn");
+			addEditBtn(editBtn, cardData);
+
+			// Re-add delete button functionality
+			const deleteBtn = cards.querySelector(".delete-btn");
+			deleteBtn.addEventListener("click", () => {
+				cards.innerHTML = "";
+				// column.removeChild(cards);
+				taskManager.deleteTask(cardData.currentId);
+			});
 		}
 	});
 };
