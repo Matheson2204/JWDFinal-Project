@@ -178,33 +178,7 @@ const addCard = () => {
 
 	// Working with global function refactor
 	addEditBtn(editBtn, cardData);
-	// ----- Refactoring into its own global function ----//
-
-	// editBtn.addEventListener("click", () => {
-	// // Opens form modal, disables original submit btn function
-	// formModal.show();
-	// submitBtn.removeEventListener("click", formSubmission);
-
-	// 	// Submits task info from .tasks array into form
-	// title.value = cardData.title;
-	// 	description.value = cardData.desc;
-	// 	assign.value = cardData.assign;
-	// 	status.value = cardData.status;
-	// 	dueDate.value = cardData.dueDate;
-
-	// submitBtn.addEventListener("click", () => {
-	//   // Update task info in .tasks
-	//   taskManager.editTask(cardData.currentId, title.value, description.value, assign.value, status.value, dueDate.value);
-	//   console.log(taskManager.tasks);
-	//   updateCard(cardData.currentId, cardData);
-
-	// 		// Add back ability to submit new card
-	// 		submitBtn.addEventListener("click", formSubmission);
-
-	// 	});
-
-	// });
-
+	
 	// IMPORTANT: adds card to page
 	column.appendChild(newCard);
 };
@@ -314,12 +288,11 @@ const updateCard = (targetId, cardData, oldStatus) => {
 					oldColumn.removeChild(cards);
 					taskManager.deleteTask(cardData.currentId);
 				});
-				
 			} else {
 				console.log("statuses don't match");
 				// deletes the card first
 				oldColumn.removeChild(cards);
-				addCard()
+				addCard();
 			}
 		}
 	});
@@ -332,10 +305,3 @@ const openForm = () => {
 
 submitBtn.addEventListener("click", formSubmission);
 
-// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
-// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
-// taskManager.addTasks("Title", "Descri", "Assigned", "Status", "DueDate");
-
-// done button should
-// Update the status of a targeted card
-// and then call render again()
