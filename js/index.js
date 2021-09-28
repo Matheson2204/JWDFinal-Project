@@ -1,7 +1,7 @@
 // Create object to store card data
 const taskManager = new TaskManager();
 
-// For targetting
+// Form fields
 const title = document.querySelector("#title");
 const status = document.querySelector("#status");
 const description = document.querySelector("#desc");
@@ -14,6 +14,7 @@ const submitBtn = document.querySelector("#submit-btn");
 
 // Modal
 const formModal = new bootstrap.Modal(document.getElementById("task-form"), {});
+
 let invalidFields = 0;
 
 const formSubmission = (event) => {
@@ -27,7 +28,9 @@ const formSubmission = (event) => {
 		submitData();
 		clearForm(fields);
 
+		// Grabs just submitted task info from .tasks
 		const cardData = taskManager.tasks[taskManager.tasks.length - 1];
+
 		addCard(cardData);
 		return;
 	} else if (invalidFields > 0) {
@@ -35,14 +38,6 @@ const formSubmission = (event) => {
 		return;
 	}
 };
-
-// let fieldValues = [
-// 	title.value,
-// 	description.value,
-// 	assign.value,
-// 	status.value,
-// 	dueDate.value,
-// ];
 
 const validateFields = (fields) => {
 	let fieldValues = [
@@ -79,10 +74,10 @@ const validateFields = (fields) => {
 };
 
 function dateIsValid() {
-	// Grabbing current date
+	// Grab current date
 	const currentDate = new Date();
 
-	// Ensures month is correct and double digit
+	// Ensures month number is correct and double digit
 	let month = currentDate.getUTCMonth() + 1;
 	if (month < 10) {
 		let fixedMonth = month.toString();
@@ -102,11 +97,11 @@ function dateIsValid() {
 	const currentFormattedDate = `${currentDate.getUTCFullYear()}${month}${day}`;
 	const integerCurrentDate = parseInt(currentFormattedDate);
 
-	// Converts dueDate field value into an integer (yyyymmdd format)
+	// Converts dueDate-field value to an integer (yyyymmdd format)
 	let fixedFormFieldValue = dueDate.value.replace(/-/g, "");
 	let integerFormFieldValue = parseInt(fixedFormFieldValue);
 
-	// Compares value of form field value to the value of current date
+	// Compares value of form field to value of current date
 	if (integerFormFieldValue >= integerCurrentDate) {
 		dueDate.classList.remove("is-invalid");
 		dueDate.classList.add("is-valid");
@@ -144,17 +139,17 @@ const addCard = (cardData) => {
 	// Target column with a status matching the input
 	const column = document.getElementById(`${cardData.status}`);
 
-	// Create new styled card with content
+	// Create and style parent div to hold card content
 	const newCard = document.createElement("div");
-
 	newCard.classList.add("card");
 	newCard.classList.add("text-center");
 
-	// Create data class equal to current id and add to card
+	// Create data class equal to current id and add to card html
 	const taskId = document.createAttribute("data-task-id");
 	taskId.value = cardData.currentId;
 	newCard.setAttributeNode(taskId);
 
+	// Add card content
 	newCard.innerHTML = `<div class="card-header">
                             <h3>${cardData.title}</h3>
                         </div>
@@ -172,20 +167,20 @@ const addCard = (cardData) => {
 	// Adds delete functionality to delete button
 	const deleteBtn = newCard.querySelector(".delete-btn");
 	deleteBtn.addEventListener("click", () => {
-		// Delete from HTML
+		// Delete card from HTML
 		newCard.innerHTML = "";
 		column.removeChild(newCard);
 
-		// Delete from .tasks and local storage
+		// Delete task from .tasks and local storage
 		taskManager.deleteTask(cardData.currentId);
 		taskManager.save();
 	});
 
-	// Enables edit button functionality
+	// Adds edit button functionality
 	const editBtn = newCard.querySelector(".edit-btn");
 	addEditBtn(editBtn, cardData);
 
-	// IMPORTANT: adds card to page
+	// IMPORTANT: renders card on page
 	column.appendChild(newCard);
 };
 
@@ -232,8 +227,7 @@ const addEditBtn = (targetButton, cardData) => {
 				// Closes modal
 				formModal.hide();
 
-				// Re-adds ability to edit card after submitting an edit
-				// targetButton.addEventListener("click", editFunctionality);
+				//
 			} else if (invalidFields > 0) {
 				invalidFields = 0;
 				return;
@@ -251,7 +245,7 @@ const updateCard = (targetId, cardData, oldStatus) => {
 	// Grabs current status updated from edit form submission
 	const newStatus = cardData.status;
 
-	// Everything here only updates contents
+	// Target card based on data-task-id in HTML
 	cardList.forEach((cards) => {
 		const taskId = cards.getAttribute("data-task-id");
 		if (taskId === targetId.toString()) {
