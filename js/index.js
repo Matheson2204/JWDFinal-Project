@@ -10,6 +10,7 @@ const dueDate = document.querySelector("#dueDate");
 
 const fields = [title, description, assign, status, dueDate];
 
+const addBtn = document.querySelector(".addButton");
 const submitBtn = document.querySelector("#submit-btn");
 
 // Modal
@@ -219,6 +220,8 @@ const addEditBtn = (targetButton, cardData) => {
 					dueDate.value
 				);
 
+				clearForm(fields);
+
 				// Saves changes to local storage
 				taskManager.save();
 
@@ -229,7 +232,6 @@ const addEditBtn = (targetButton, cardData) => {
 				submitBtn.removeEventListener("click", editSubmit);
 				submitBtn.addEventListener("click", formSubmission);
 
-				clearForm(fields);
 				// Closes modal
 				formModal.hide();
 
@@ -308,5 +310,9 @@ if (taskManager.tasks) {
 	taskManager.tasks = [];
 }
 
+// Add button clears form before opening modal
+addBtn.addEventListener("click", () => {
+	clearForm(fields);
+});
 // Add submission functionality for "add task" button
 submitBtn.addEventListener("click", formSubmission);
