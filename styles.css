@@ -24,7 +24,10 @@ footer {
 
 /* Card sizing at wider screen widths */
 @media only screen and (min-width: 800px) {
-	.description {
+	.description,
+	.card-header,
+	.card-footer,
+	.assign-text {
 		overflow-y: auto;
 		max-height: 150px;
 	}

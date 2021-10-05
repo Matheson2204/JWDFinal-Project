@@ -155,8 +155,8 @@ const addCard = (cardData) => {
                         </div>
                         <div class="card-body border">
                             <p class="description text-start">${cardData.desc}</p>
-                            <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
-                            <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
+                            <p class="assign-text card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
+                            <p class="assign-text card-text"><small class=> Due ${cardData.dueDate}</small></p>
                             
                         </div>
                         <div class="card-footer">
@@ -191,6 +191,9 @@ const addEditBtn = (targetButton, cardData) => {
 		formModal.show();
 		submitBtn.removeEventListener("click", formSubmission);
 
+		// Clear form data and validation stylings
+		clearForm(fields);
+
 		// Fills form with task info from .tasks array
 		title.value = cardData.title;
 		description.value = cardData.desc;
@@ -215,6 +218,9 @@ const addEditBtn = (targetButton, cardData) => {
 					status.value,
 					dueDate.value
 				);
+
+				// Saves changes to local storage
+				taskManager.save();
 
 				// Edits the card contents and/or position
 				updateCard(cardData.currentId, cardData, oldStatus);
@@ -257,8 +263,8 @@ const updateCard = (targetId, cardData, oldStatus) => {
 	                      </div>
 	                      <div class="card-body border">
 	                          <p class="description text-start">${cardData.desc}</p>
-	                          <p class="card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
-	                          <p class="card-text"><small class=> Due ${cardData.dueDate}</small></p>
+	                          <p class="assign-text card-text"><small class=>Assigned to: <br> ${cardData.assign}</small></p>
+	                          <p class="assign-text card-text"><small class=> Due ${cardData.dueDate}</small></p>
 
 	                      </div>
 	                      <div class="card-footer">

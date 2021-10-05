@@ -17,12 +17,11 @@ class TaskManager {
 	}
 	//Method for delete task card info
 	deleteTask(targetId) {
-		for (let i = 0; i > this.tasks.length; i++) {
+		for (let i = 0; i < this.tasks.length; i++) {
 			if (this.tasks[i].currentId === targetId) {
-				this.tasks.splice(i);
+				this.tasks.splice(i, 1);
 			}
 		}
-		this.tasks.shift(targetId);
 	}
 	//editing card info (work in progress)
 	editTask(targetId, title, desc, assign, status, dueDate) {
