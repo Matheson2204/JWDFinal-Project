@@ -22,4 +22,5 @@ Dev Tools/Languages:
 - Bootstrap
 - VS code/extensions: Prettier, ESLint, Live Share, Live Server
 - GitHub
+- Zoom
 
