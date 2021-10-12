@@ -15,3 +15,11 @@ First we established our draft for the project **TASK 1** through [Figma](https:
 
 **TASK 4** to   **TASK 10** were the implementation of code for the functionality and method design of the page.
 
+Dev Tools/Languages:
+- HTML
+- CSS
+- JAvascript
+- Bootstrap
+- VS code/extensions: Prettier, ESLint, Live Share, Live Server
+- GitHub
+
