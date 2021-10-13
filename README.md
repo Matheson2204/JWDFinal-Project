@@ -24,5 +24,8 @@ Dev Tools/Languages:
 - GitHub
 - Zoom
 
-[VS code Index.js:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/js/index.js)
+[Index.js:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/js/index.js)
+[TaskManager.js:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/js/taskManager.js)
+[Index.html:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/index.html)
+[Styles.css:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/styles.css)
 
