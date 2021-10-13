@@ -24,3 +24,5 @@ Dev Tools/Languages:
 - GitHub
 - Zoom
 
+[VS code Index.js:](https://github.com/Matheson2204/JWDFinal-Project/blob/main/js/index.js)
+
