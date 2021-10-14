@@ -1,5 +1,7 @@
 # JWDFinal-Project
 
+**Authors: Matheson Walsh and Christopher Vega**
+
 The purpose of the project was to establish the ability to work together to construct a working website that could offer the ability to create a todo list for ourselves or potential clients. 
 
 Todo List functions:
